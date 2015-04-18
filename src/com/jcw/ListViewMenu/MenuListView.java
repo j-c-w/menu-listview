@@ -21,14 +21,26 @@ public class MenuListView extends ListView {
 
 	public MenuListView(Context context) {
 		super(context);
+		init();
 	}
 
 	public MenuListView(Context context, AttributeSet attrs) {
 		super(context, attrs);
+		init();
 	}
 
 	public MenuListView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
+		init();
+	}
+
+	private void init() {
+		// This is done because the wa that the adapter generates
+		// the sub-items of folders leads to some very large items
+		// in the list. This would lead to the scroll bar jumping
+		// around all over the place (i.e. it would be horribly
+		// inaccurate).
+		this.setVerticalScrollBarEnabled(false);
 	}
 
 	@Override
