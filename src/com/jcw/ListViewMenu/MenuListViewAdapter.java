@@ -34,19 +34,19 @@ public class MenuListViewAdapter implements ListAdapter {
 
 	Context context;
 
-	List<Item> items;
+	List<MenuListItem> items;
 
 	DataSetObserver dataSetObserver = null;
 
 	public MenuListViewAdapter(Context context) {
 		this.context = context;
 
-		items = new ArrayList<Item>();
+		items = new ArrayList<MenuListItem>();
 	}
 
 	@Override
 	public boolean areAllItemsEnabled() {
-		for (Item item : items) {
+		for (MenuListItem item : items) {
 			if (!item.enabled || item.hidden) {
 				return false;
 			}
@@ -55,15 +55,15 @@ public class MenuListViewAdapter implements ListAdapter {
 	}
 
 	public void itemClick(int index) {
-		Item item = items.get(index);
+		MenuListItem item = items.get(index);
 
-		ItemClickListener thisListener = item.listener;
+		MenuItemClickListener thisListener = item.listener;
 		if (thisListener != null) {
 			thisListener.onClick(item.text, item.subheader, item.isFolder);
 		}
 
 		if (item.isFolder) {
-			Folder folder = (Folder) item;
+			MenuListFolder folder = (MenuListFolder) item;
 			folder.isOpen = !folder.isOpen;
 		}
 	}
@@ -105,12 +105,12 @@ public class MenuListViewAdapter implements ListAdapter {
 
 	@Override
 	public View getView(int i, View view, ViewGroup viewGroup) {
-		Item data = items.get(i);
+		MenuListItem data = items.get(i);
 
 		return getView(data);
 	}
 
-	protected View getView(Item data) {
+	protected View getView(MenuListItem data) {
 		if (data.hidden) {
 			return null;
 		}
@@ -140,13 +140,13 @@ public class MenuListViewAdapter implements ListAdapter {
 		container.addView(subtext);
 		container.addView(getListSeparator());
 
-		if (data.isFolder && (((Folder)data).isOpen)) {
+		if (data.isFolder && (((MenuListFolder)data).isOpen)) {
 			// we need to display all the sub items.
 			LinearLayout mainContainer = new LinearLayout(context);
 			mainContainer.setOrientation(LinearLayout.VERTICAL);
 
 			mainContainer.addView(container);
-			for (Item item : ((Folder)data).subitems) {
+			for (MenuListItem item : ((MenuListFolder)data).subitems) {
 				mainContainer.addView(getView(item));
 			}
 	}
@@ -168,7 +168,7 @@ public class MenuListViewAdapter implements ListAdapter {
 		return separator;
 	}
 
-	public void addItem(Item item) {
+	public void addItem(MenuListItem item) {
 		this.items.add(item);
 		if (dataSetObserver != null) {
 			dataSetObserver.onChanged();
@@ -188,72 +188,5 @@ public class MenuListViewAdapter implements ListAdapter {
 	@Override
 	public boolean isEmpty() {
 		return items.isEmpty();
-	}
-
-	/*
-	 * This is used to store information about each item
-	 */
-	public class Item {
-		protected String text;
-		protected String subheader;
-
-		protected ItemClickListener listener;
-
-		protected final boolean isFolder = false;
-		protected boolean enabled = true;
-		protected boolean hidden = false;
-
-		public Item(String text, ItemClickListener listener) {
-			this.text = text;
-			this.listener = listener;
-		}
-
-		public Item(String text, String subheader, ItemClickListener listener) {
-			this.text = text;
-			this.subheader = subheader;
-			this.listener = listener;
-		}
-
-		public void setEnabled(boolean enabled) {
-			this.enabled = enabled;
-		}
-
-		public void setHidden(boolean hidden) {
-			this.hidden = hidden;
-		}
-	}
-
-	protected class Folder extends Item {
-		protected final boolean isFolder = true;
-		protected List<Item> subitems = new ArrayList<Item>();
-		protected boolean isOpen = false;
-
-		public Folder(String text, List<Item> subitems) {
-			super(text, null);
-			this.subitems = subitems;
-		}
-
-		public Folder(String text, ItemClickListener listener, List<Item> subitems) {
-			super(text, listener);
-			this.subitems = subitems;
-		}
-
-		public Folder(String text, String subtext, List<Item> subitems) {
-			super(text, subtext, null);
-			this.subitems = subitems;
-		}
-
-		public Folder(String text, String subtext, List<Item> subitems, ItemClickListener listener) {
-			super(text, subtext, listener);
-			this.subitems = subitems;
-		}
-
-		public void addItem(Item item) {
-			this.subitems.add(item);
-		}
-	}
-
-	public interface ItemClickListener {
-		public void onClick(String text, String subheader, boolean isFolder);
 	}
 }
