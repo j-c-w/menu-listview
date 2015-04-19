@@ -5,10 +5,7 @@ import android.database.DataSetObserver;
 import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
-import android.widget.ListAdapter;
-import android.widget.TextView;
+import android.widget.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,12 +56,14 @@ public class MenuListViewAdapter implements ListAdapter {
 
 		MenuItemClickListener thisListener = item.listener;
 		if (thisListener != null) {
-			thisListener.onClick(item.text, item.subheader, item.isFolder);
+			thisListener.onClick(item.text, item.subheader, item instanceof MenuListFolder);
 		}
 
-		if (item.isFolder) {
+		if (item instanceof MenuListFolder) {
 			MenuListFolder folder = (MenuListFolder) item;
 			folder.isOpen = !folder.isOpen;
+			if (dataSetObserver != null)
+				dataSetObserver.onInvalidated();
 		}
 	}
 
@@ -137,9 +136,13 @@ public class MenuListViewAdapter implements ListAdapter {
 		subtext.setTextSize(SUB_TEXT_SIZE);
 
 		container.addView(mainText);
-		container.addView(subtext);
+		if (data.hasSubheader()) {
+			// To preserve the position of the main text in the center,
+			// only add this if it actually has text.
+			container.addView(subtext);
+		}
 
-		if (data.isFolder && (((MenuListFolder)data).isOpen)) {
+		if (data instanceof MenuListFolder && (((MenuListFolder)data).isOpen)) {
 			// we need to display all the sub items.
 			LinearLayout mainContainer = new LinearLayout(context);
 			mainContainer.setOrientation(LinearLayout.VERTICAL);
@@ -149,6 +152,8 @@ public class MenuListViewAdapter implements ListAdapter {
 			for (MenuListItem item : ((MenuListFolder)data).subitems) {
 				mainContainer.addView(getView(item));
 			}
+
+			return mainContainer;
 		}
 
 		LinearLayout mainContainer = new LinearLayout(context);
