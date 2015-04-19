@@ -8,14 +8,13 @@ package com.jcw.ListViewMenu;
  * menu.
  */
 public class MenuListItem {
-	protected String text;
-	protected String subheader;
+	public String text;
+	public String subheader;
 
 	protected MenuItemClickListener listener;
 
-	protected final boolean isFolder = false;
-	protected boolean enabled = true;
-	protected boolean hidden = false;
+	public boolean enabled = true;
+	public boolean hidden = false;
 
 	public MenuListItem(String text, MenuItemClickListener listener) {
 		this.text = text;
@@ -34,5 +33,9 @@ public class MenuListItem {
 
 	public void setHidden(boolean hidden) {
 		this.hidden = hidden;
+	}
+
+	public boolean hasSubheader() {
+		return !subheader.equals("");
 	}
 }

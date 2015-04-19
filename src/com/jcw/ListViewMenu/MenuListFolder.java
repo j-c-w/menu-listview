@@ -11,9 +11,11 @@ import java.util.List;
  * just be plain items.
  */
 public class MenuListFolder extends MenuListItem {
-	protected final boolean isFolder = true;
-	protected List<MenuListItem> subitems = new ArrayList<MenuListItem>();
+	// This is protected because a call needs to be made to the
+	// dataset observer in the adapter in the adapter for changes
+	// to this to have any effect.
 	protected boolean isOpen = false;
+	protected List<MenuListItem> subitems = new ArrayList<MenuListItem>();
 
 	public MenuListFolder(String text, List<MenuListItem> subitems) {
 		super(text, null);
