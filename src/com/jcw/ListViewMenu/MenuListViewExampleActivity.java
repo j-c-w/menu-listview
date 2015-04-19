@@ -25,6 +25,7 @@ public class MenuListViewExampleActivity extends Activity {
 			}
 		}));
 
+		exampleList.setAdapter(adapter);
 		this.setContentView(exampleList);
 	}
 }

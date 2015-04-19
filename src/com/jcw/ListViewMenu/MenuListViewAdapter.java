@@ -138,7 +138,6 @@ public class MenuListViewAdapter implements ListAdapter {
 
 		container.addView(mainText);
 		container.addView(subtext);
-		container.addView(getListSeparator());
 
 		if (data.isFolder && (((MenuListFolder)data).isOpen)) {
 			// we need to display all the sub items.
@@ -146,12 +145,19 @@ public class MenuListViewAdapter implements ListAdapter {
 			mainContainer.setOrientation(LinearLayout.VERTICAL);
 
 			mainContainer.addView(container);
+			mainContainer.addView(getListSeparator());
 			for (MenuListItem item : ((MenuListFolder)data).subitems) {
 				mainContainer.addView(getView(item));
 			}
-	}
+		}
 
-		return container;
+		LinearLayout mainContainer = new LinearLayout(context);
+		mainContainer.setOrientation(LinearLayout.VERTICAL);
+
+		mainContainer.addView(container);
+		mainContainer.addView(getListSeparator());
+
+		return mainContainer;
 	}
 
 	/*
@@ -182,7 +188,7 @@ public class MenuListViewAdapter implements ListAdapter {
 
 	@Override
 	public int getViewTypeCount() {
-		return 0;
+		return 1;
 	}
 
 	@Override
