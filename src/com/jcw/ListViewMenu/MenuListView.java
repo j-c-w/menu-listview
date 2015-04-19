@@ -41,6 +41,7 @@ public class MenuListView extends ListView {
 		// around all over the place (i.e. it would be horribly
 		// inaccurate).
 		this.setVerticalScrollBarEnabled(false);
+		this.setOnItemClickListener(null);
 	}
 
 	@Override
@@ -59,7 +60,8 @@ public class MenuListView extends ListView {
 			@Override
 			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 				MenuListView.this.onItemClick(i);
-				listener.onItemClick(adapterView, view, i, l);
+				if (listener != null)
+					listener.onItemClick(adapterView, view, i, l);
 			}
 		});
 	}
