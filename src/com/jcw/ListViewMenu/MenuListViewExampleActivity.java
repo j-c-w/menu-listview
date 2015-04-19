@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Jackson Woodruff on 4/18/2015.
  *
@@ -18,10 +21,21 @@ public class MenuListViewExampleActivity extends Activity {
 		MenuListView exampleList = new MenuListView(this);
 		MenuListViewAdapter adapter = new MenuListViewAdapter(this);
 
-		adapter.addItem(new MenuListItem("Show a Toast", new MenuItemClickListener() {
+		List<MenuListItem> items = new ArrayList<MenuListItem>();
+		items.add(new MenuListItem("Sub item 1", "", new MenuItemClickListener() {
 			@Override
 			public void onClick(String text, String subheader, boolean isFolder) {
-				Toast.makeText(MenuListViewExampleActivity.this, "Toast", Toast.LENGTH_LONG).show();
+				Toast.makeText(MenuListViewExampleActivity.this, "Item in a folder of the menu", Toast.LENGTH_LONG).show();
+			}
+		}));
+
+		MenuListFolder container = new MenuListFolder("Folder", "Click to enlarge", items);
+
+		adapter.addItem(container);
+		adapter.addItem(new MenuListItem("Exit", "Quit the demo", new MenuItemClickListener() {
+			@Override
+			public void onClick(String text, String subheader, boolean isFolder) {
+				MenuListViewExampleActivity.this.finish();
 			}
 		}));
 
