@@ -54,7 +54,7 @@ public class MenuListViewAdapter implements ExpandableListAdapter {
 
 	public void itemClick(int index, int child) {
 		MenuListItem item = items.get(index);
-		
+
 		if (child != -1) {
 			if (item instanceof MenuListFolder) {
 				MenuListItem subitem = ((MenuListFolder) item).subitems.get(child);
@@ -132,6 +132,10 @@ public class MenuListViewAdapter implements ExpandableListAdapter {
 	@Override
 	public long getChildId(int i, int i2) {
 		return i * 1000 + i2;
+	}
+
+	public boolean shouldExpandAt(int i) {
+		return items.get(i) instanceof MenuListFolder;
 	}
 
 	@Override

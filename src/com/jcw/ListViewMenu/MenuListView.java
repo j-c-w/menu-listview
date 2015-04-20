@@ -34,6 +34,8 @@ public class MenuListView extends ExpandableListView {
 
 	private void init() {
 		this.setOnChildClickListener(null);
+		this.setOnGroupClickListener(null);
+		this.setGroupIndicator(null);
 	}
 
 	@Override
@@ -61,6 +63,16 @@ public class MenuListView extends ExpandableListView {
 				if (listener != null)
 					listener.onChildClick(expandableListView, view, i, child, l);
 				return true;
+			}
+		});
+	}
+
+	@Override
+	public void setOnGroupClickListener(OnGroupClickListener listener) {
+		super.setOnGroupClickListener(new OnGroupClickListener() {
+			@Override
+			public boolean onGroupClick(ExpandableListView expandableListView, View view, int i, long l) {
+				return adapter.shouldExpandAt(i);
 			}
 		});
 	}
