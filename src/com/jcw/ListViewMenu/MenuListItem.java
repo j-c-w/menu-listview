@@ -13,7 +13,7 @@ public class MenuListItem {
 
 	private int indent = 0;
 
-	protected MenuItemClickListener listener;
+	protected MenuItemClickListener listener = null;
 
 	public boolean enabled = true;
 	public boolean hidden = false;
@@ -26,6 +26,19 @@ public class MenuListItem {
 	public MenuListItem(String text, String subheader, MenuItemClickListener listener) {
 		this.text = text;
 		this.subheader = subheader;
+		this.listener = listener;
+	}
+
+	public MenuListItem(String text) {
+		this.text = text;
+	}
+
+	public MenuListItem(String text, String subheader) {
+		this.text = text;
+		this.subheader = subheader;
+	}
+
+	public void setMenuItemClickListener(MenuItemClickListener listener) {
 		this.listener = listener;
 	}
 
