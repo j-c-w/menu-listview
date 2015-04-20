@@ -3,6 +3,7 @@ package com.jcw.ListViewMenu;
 import android.content.Context;
 import android.database.DataSetObserver;
 import android.graphics.Color;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
@@ -17,7 +18,7 @@ import java.util.List;
  * This is a list view that is designed to have menu items added
  * to it.
  */
-public class MenuListViewAdapter implements ListAdapter {
+public class MenuListViewAdapter implements ExpandableListAdapter {
 	public int ENABLED_COLOR = Color.GRAY;
 	public int DISABLED_COLOR = Color.LTGRAY;
 	public int MAIN_TEXT_COLOR = Color.WHITE;
@@ -51,25 +52,32 @@ public class MenuListViewAdapter implements ListAdapter {
 		return true;
 	}
 
-	public void itemClick(int index) {
+	public void itemClick(int index, int child) {
 		MenuListItem item = items.get(index);
+		Toast.makeText(context, Integer.toString(child), Toast.LENGTH_LONG).show();
+
+		if (child != -1) {
+			if (item instanceof MenuListFolder) {
+				MenuListItem subitem = ((MenuListFolder) item).subitems.get(child);
+				MenuItemClickListener listener = subitem.listener;
+
+				if (listener != null) {
+					listener.onClick(subitem.text, subitem.subheader, false);
+				}
+			}
+		}
 
 		MenuItemClickListener thisListener = item.listener;
 		if (thisListener != null) {
 			thisListener.onClick(item.text, item.subheader, item instanceof MenuListFolder);
 		}
 
-		if (item instanceof MenuListFolder) {
+		if (item instanceof MenuListFolder && child == -1) {
 			MenuListFolder folder = (MenuListFolder) item;
 			folder.isOpen = !folder.isOpen;
 			if (dataSetObserver != null)
 				dataSetObserver.onInvalidated();
 		}
-	}
-
-	@Override
-	public boolean isEnabled(int i) {
-		return items.get(i).enabled && !items.get(i).hidden;
 	}
 
 	@Override
@@ -83,30 +91,92 @@ public class MenuListViewAdapter implements ListAdapter {
 	}
 
 	@Override
-	public int getCount() {
-		return items.size();
-	}
-
-	@Override
-	public Object getItem(int i) {
-		return items.get(i);
-	}
-
-	@Override
-	public long getItemId(int i) {
-		return i;
-	}
-
-	@Override
 	public boolean hasStableIds() {
 		return false;
 	}
 
 	@Override
-	public View getView(int i, View view, ViewGroup viewGroup) {
-		MenuListItem data = items.get(i);
+	public int getGroupCount() {
+		return items.size();
+	}
 
-		return getView(data);
+	@Override
+	public int getChildrenCount(int i) {
+		MenuListItem item = items.get(i);
+		if (item instanceof MenuListFolder) {
+			return ((MenuListFolder) item).subitems.size();
+		}
+		return 0;
+	}
+
+	@Override
+	public Object getGroup(int i) {
+		return items.get(i);
+	}
+
+	@Override
+	public Object getChild(int i, int childIndex) {
+		MenuListItem item = items.get(i);
+		if (item instanceof MenuListFolder) {
+			return ((MenuListFolder) item).subitems.get(childIndex);
+		}
+
+		throw new IndexOutOfBoundsException("Only MenuListFolders may have children, there isa  MenuListItem at the" +
+				" index you requested");
+	}
+
+	@Override
+	public long getGroupId(int i) {
+		return i;
+	}
+
+	@Override
+	public long getChildId(int i, int i2) {
+		return i * 1000 + i2;
+	}
+
+	@Override
+	public View getGroupView(int i, boolean b, View view, ViewGroup viewGroup) {
+		return getView(items.get(i));
+	}
+
+	@Override
+	public View getChildView(int parentIndex, int childIndex, boolean b, View view, ViewGroup viewGroup) {
+		if (!(items.get(parentIndex) instanceof MenuListFolder))
+			throw new IllegalArgumentException("Only folders have children!");
+
+		MenuListFolder data = (MenuListFolder) items.get(parentIndex);
+		return getView(data.subitems.get(childIndex));
+	}
+
+	@Override
+	public boolean isChildSelectable(int i, int i2) {
+		MenuListItem item = items.get(i);
+		if (item instanceof MenuListFolder) {
+			return ((MenuListFolder) item).isOpen;
+		}
+
+		return false;
+	}
+
+	@Override
+	public void onGroupExpanded(int i) {
+
+	}
+
+	@Override
+	public void onGroupCollapsed(int i) {
+
+	}
+
+	@Override
+	public long getCombinedChildId(long l, long l2) {
+		return l + l2;
+	}
+
+	@Override
+	public long getCombinedGroupId(long l) {
+		return l;
 	}
 
 	protected View getView(MenuListItem data) {
@@ -120,7 +190,7 @@ public class MenuListViewAdapter implements ListAdapter {
 		TextView subtext = new TextView(context);
 
 		container.setOrientation(LinearLayout.VERTICAL);
-		container.setPadding(15, 15, 15, 15);
+		container.setPadding(25, 15, 15, 15);
 		if (data.enabled) {
 			container.setBackgroundColor(ENABLED_COLOR);
 		} else {
@@ -140,20 +210,6 @@ public class MenuListViewAdapter implements ListAdapter {
 			// To preserve the position of the main text in the center,
 			// only add this if it actually has text.
 			container.addView(subtext);
-		}
-
-		if (data instanceof MenuListFolder && (((MenuListFolder)data).isOpen)) {
-			// we need to display all the sub items.
-			LinearLayout mainContainer = new LinearLayout(context);
-			mainContainer.setOrientation(LinearLayout.VERTICAL);
-
-			mainContainer.addView(container);
-			mainContainer.addView(getListSeparator());
-			for (MenuListItem item : ((MenuListFolder)data).subitems) {
-				mainContainer.addView(getView(item));
-			}
-
-			return mainContainer;
 		}
 
 		LinearLayout mainContainer = new LinearLayout(context);
@@ -184,16 +240,6 @@ public class MenuListViewAdapter implements ListAdapter {
 		if (dataSetObserver != null) {
 			dataSetObserver.onChanged();
 		}
-	}
-
-	@Override
-	public int getItemViewType(int i) {
-		return 0;
-	}
-
-	@Override
-	public int getViewTypeCount() {
-		return 1;
 	}
 
 	@Override

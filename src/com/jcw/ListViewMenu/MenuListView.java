@@ -3,9 +3,7 @@ package com.jcw.ListViewMenu;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListAdapter;
-import android.widget.ListView;
+import android.widget.*;
 
 /**
  * Created by Jackson Woodruff on 4/16/2015.
@@ -16,7 +14,7 @@ import android.widget.ListView;
  *
  * Note -- you must use the MenuListViewAdapter with this code
  */
-public class MenuListView extends ListView {
+public class MenuListView extends ExpandableListView {
 	MenuListViewAdapter adapter;
 
 	public MenuListView(Context context) {
@@ -35,17 +33,17 @@ public class MenuListView extends ListView {
 	}
 
 	private void init() {
-		// This is done because the wa that the adapter generates
-		// the sub-items of folders leads to some very large items
-		// in the list. This would lead to the scroll bar jumping
-		// around all over the place (i.e. it would be horribly
-		// inaccurate).
-		this.setVerticalScrollBarEnabled(false);
-		this.setOnItemClickListener(null);
+		this.setOnChildClickListener(null);
 	}
 
 	@Override
 	public void setAdapter(ListAdapter adapter) {
+		throw new IllegalArgumentException("You must use a MenuListViewAdapter with the MenuListView" +
+				" " + adapter.getClass() + " is not an instance of MenuListViewAdapter");
+	}
+
+	@Override
+	public void setAdapter(ExpandableListAdapter adapter) {
 		if (!(adapter instanceof MenuListViewAdapter))
 			throw new IllegalArgumentException("You must use a MenuListViewAdapter with the MenuListView" +
 					" " + adapter.getClass().toString() + " is not an instance of  MenuListViewAdapter");
@@ -55,18 +53,19 @@ public class MenuListView extends ListView {
 	}
 
 	@Override
-	public void setOnItemClickListener(final OnItemClickListener listener) {
-		super.setOnItemClickListener(new OnItemClickListener() {
+	public void setOnChildClickListener(final OnChildClickListener listener) {
+		super.setOnChildClickListener(new OnChildClickListener() {
 			@Override
-			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-				MenuListView.this.onItemClick(i);
+			public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int child, long l) {
+				MenuListView.this.onItemClick(i, child);
 				if (listener != null)
-					listener.onItemClick(adapterView, view, i, l);
+					listener.onChildClick(expandableListView, view, i, child, l);
+				return true;
 			}
 		});
 	}
 
-	private void onItemClick(int index) {
-		adapter.itemClick(index);
+	private void onItemClick(int index, int child) {
+		adapter.itemClick(index, child);
 	}
 }
