@@ -62,6 +62,13 @@ public class MenuListViewAdapter implements ListAdapter {
 		if (item instanceof MenuListFolder) {
 			MenuListFolder folder = (MenuListFolder) item;
 			folder.isOpen = !folder.isOpen;
+
+			if (folder.isOpen) {
+				items.addAll(index + 1, folder.subitems);
+			} else {
+				items.removeAll(folder.subitems);
+			}
+
 			if (dataSetObserver != null)
 				dataSetObserver.onInvalidated();
 		}
@@ -140,20 +147,6 @@ public class MenuListViewAdapter implements ListAdapter {
 			// To preserve the position of the main text in the center,
 			// only add this if it actually has text.
 			container.addView(subtext);
-		}
-
-		if (data instanceof MenuListFolder && (((MenuListFolder)data).isOpen)) {
-			// we need to display all the sub items.
-			LinearLayout mainContainer = new LinearLayout(context);
-			mainContainer.setOrientation(LinearLayout.VERTICAL);
-
-			mainContainer.addView(container);
-			mainContainer.addView(getListSeparator());
-			for (MenuListItem item : ((MenuListFolder)data).subitems) {
-				mainContainer.addView(getView(item));
-			}
-
-			return mainContainer;
 		}
 
 		LinearLayout mainContainer = new LinearLayout(context);
