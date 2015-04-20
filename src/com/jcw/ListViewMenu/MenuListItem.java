@@ -16,7 +16,6 @@ public class MenuListItem {
 	protected MenuItemClickListener listener = null;
 
 	public boolean enabled = true;
-	public boolean hidden = false;
 
 	public MenuListItem(String text, MenuItemClickListener listener) {
 		this.text = text;
@@ -44,10 +43,6 @@ public class MenuListItem {
 
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
-	}
-
-	public void setHidden(boolean hidden) {
-		this.hidden = hidden;
 	}
 
 	public boolean hasSubheader() {

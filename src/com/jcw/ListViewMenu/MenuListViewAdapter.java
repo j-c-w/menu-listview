@@ -44,7 +44,7 @@ public class MenuListViewAdapter implements ListAdapter {
 	@Override
 	public boolean areAllItemsEnabled() {
 		for (MenuListItem item : items) {
-			if (!item.enabled || item.hidden) {
+			if (!item.enabled) {
 				return false;
 			}
 		}
@@ -91,7 +91,7 @@ public class MenuListViewAdapter implements ListAdapter {
 
 	@Override
 	public boolean isEnabled(int i) {
-		return items.get(i).enabled && !items.get(i).hidden;
+		return items.get(i).enabled;
 	}
 
 	@Override
@@ -138,10 +138,6 @@ public class MenuListViewAdapter implements ListAdapter {
 	}
 
 	protected View getView(MenuListItem data) {
-		if (data.hidden) {
-			return null;
-		}
-
 		LinearLayout container = new LinearLayout(context);
 
 		TextView mainText = new TextView(context);

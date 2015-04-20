@@ -18,7 +18,7 @@ public class MenuListFolder extends MenuListItem {
 	protected List<MenuListItem> subitems = new ArrayList<MenuListItem>();
 
 	public MenuListFolder(String text, List<MenuListItem> subitems) {
-		super(text, null);
+		super(text);
 		this.subitems = subitems;
 		initIndents();
 	}
