@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Jackson on 4/19/2015.
+ * Created by Jackson Woodruff on 4/19/2015.
  *
  * This is a class used to contain sub items.
  * These sub items can be folders too, or they can
@@ -20,24 +20,41 @@ public class MenuListFolder extends MenuListItem {
 	public MenuListFolder(String text, List<MenuListItem> subitems) {
 		super(text, null);
 		this.subitems = subitems;
+		initIndents();
 	}
 
 	public MenuListFolder(String text, MenuItemClickListener listener, List<MenuListItem> subitems) {
 		super(text, listener);
 		this.subitems = subitems;
+		initIndents();
 	}
 
 	public MenuListFolder(String text, String subtext, List<MenuListItem> subitems) {
 		super(text, subtext, null);
 		this.subitems = subitems;
+		initIndents();
 	}
 
 	public MenuListFolder(String text, String subtext, List<MenuListItem> subitems, MenuItemClickListener listener) {
 		super(text, subtext, listener);
 		this.subitems = subitems;
+		initIndents();
+	}
+
+	private void initIndents() {
+		for (int i = 0; i < subitems.size(); i ++) {
+			subitems.get(i).setIndent(this.getIndent() + 1);
+		}
+	}
+
+	@Override
+	public void setIndent(int indent) {
+		super.setIndent(indent);
+		initIndents();
 	}
 
 	public void addItem(MenuListItem item) {
+		item.setIndent(this.getIndent() + 1);
 		this.subitems.add(item);
 	}
 }

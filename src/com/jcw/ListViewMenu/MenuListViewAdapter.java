@@ -56,7 +56,7 @@ public class MenuListViewAdapter implements ListAdapter {
 
 		MenuItemClickListener thisListener = item.listener;
 		if (thisListener != null) {
-			thisListener.onClick(item.text, item.subheader, item instanceof MenuListFolder);
+			thisListener.onClick(item.getText(), item.getSubheader(), item instanceof MenuListFolder);
 		}
 
 		if (item instanceof MenuListFolder) {
@@ -66,12 +66,27 @@ public class MenuListViewAdapter implements ListAdapter {
 			if (folder.isOpen) {
 				items.addAll(index + 1, folder.subitems);
 			} else {
-				items.removeAll(folder.subitems);
+				removeFolder(index);
 			}
 
 			if (dataSetObserver != null)
 				dataSetObserver.onInvalidated();
 		}
+	}
+
+	/*
+	 * This recursively remvoes all sub-folders
+	 * along with the main folder from the list.
+	 */
+	private void removeFolder(int index) {
+		MenuListFolder folder = (MenuListFolder) items.get(index);
+		for (int i = 0; i < folder.subitems.size(); i ++) {
+			MenuListItem item = folder.subitems.get(i);
+			if (item instanceof MenuListFolder) {
+				removeFolder(index + i + 1);
+			}
+		}
+		items.removeAll(folder.subitems);
 	}
 
 	@Override
@@ -116,6 +131,12 @@ public class MenuListViewAdapter implements ListAdapter {
 		return getView(data);
 	}
 
+	public void invalidate() {
+		if (dataSetObserver != null) {
+			dataSetObserver.onInvalidated();
+		}
+	}
+
 	protected View getView(MenuListItem data) {
 		if (data.hidden) {
 			return null;
@@ -127,7 +148,7 @@ public class MenuListViewAdapter implements ListAdapter {
 		TextView subtext = new TextView(context);
 
 		container.setOrientation(LinearLayout.VERTICAL);
-		container.setPadding(15, 15, 15, 15);
+		container.setPadding(15 * data.getIndentFactor(), 15, 15, 15);
 		if (data.enabled) {
 			container.setBackgroundColor(ENABLED_COLOR);
 		} else {
@@ -135,11 +156,11 @@ public class MenuListViewAdapter implements ListAdapter {
 		}
 
 		mainText.setTextColor(MAIN_TEXT_COLOR);
-		mainText.setText(data.text);
+		mainText.setText(data.getText());
 		mainText.setTextSize(MAIN_TEXT_SIZE);
 
 		subtext.setTextColor(SUB_TEXT_COLOR);
-		subtext.setText(data.subheader);
+		subtext.setText(data.getSubheader());
 		subtext.setTextSize(SUB_TEXT_SIZE);
 
 		container.addView(mainText);

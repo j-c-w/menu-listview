@@ -8,8 +8,10 @@ package com.jcw.ListViewMenu;
  * menu.
  */
 public class MenuListItem {
-	public String text = "";
-	public String subheader = "";
+	private String text = "";
+	private String subheader = "";
+
+	private int indent = 0;
 
 	protected MenuItemClickListener listener;
 
@@ -37,5 +39,25 @@ public class MenuListItem {
 
 	public boolean hasSubheader() {
 		return !subheader.equals("");
+	}
+
+	public String getText() {
+		return text;
+	}
+
+	public String getSubheader() {
+		return subheader;
+	}
+
+	public int getIndentFactor() {
+		return indent + 1;
+	}
+
+	public int getIndent() {
+		return indent;
+	}
+
+	public void setIndent(int indent) {
+		this.indent = indent;
 	}
 }
