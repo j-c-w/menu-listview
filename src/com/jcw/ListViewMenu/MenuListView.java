@@ -35,12 +35,6 @@ public class MenuListView extends ListView {
 	}
 
 	private void init() {
-		// This is done because the wa that the adapter generates
-		// the sub-items of folders leads to some very large items
-		// in the list. This would lead to the scroll bar jumping
-		// around all over the place (i.e. it would be horribly
-		// inaccurate).
-		this.setVerticalScrollBarEnabled(false);
 		this.setOnItemClickListener(null);
 	}
 
