@@ -54,8 +54,7 @@ public class MenuListViewAdapter implements ExpandableListAdapter {
 
 	public void itemClick(int index, int child) {
 		MenuListItem item = items.get(index);
-		Toast.makeText(context, Integer.toString(child), Toast.LENGTH_LONG).show();
-
+		
 		if (child != -1) {
 			if (item instanceof MenuListFolder) {
 				MenuListItem subitem = ((MenuListFolder) item).subitems.get(child);
@@ -151,12 +150,7 @@ public class MenuListViewAdapter implements ExpandableListAdapter {
 
 	@Override
 	public boolean isChildSelectable(int i, int i2) {
-		MenuListItem item = items.get(i);
-		if (item instanceof MenuListFolder) {
-			return ((MenuListFolder) item).isOpen;
-		}
-
-		return false;
+		return true;
 	}
 
 	@Override
