@@ -8,8 +8,8 @@ package com.jcw.ListViewMenu;
  * menu.
  */
 public class MenuListItem {
-	public String text;
-	public String subheader;
+	public String text = "";
+	public String subheader = "";
 
 	protected MenuItemClickListener listener;
 
