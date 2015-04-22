@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.*;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -72,6 +73,14 @@ public class MenuListViewAdapter implements ListAdapter {
 			if (dataSetObserver != null)
 				dataSetObserver.onInvalidated();
 		}
+	}
+
+	public void addAll(Collection<MenuListItem> items) {
+		items.addAll(items);
+	}
+
+	public boolean remove(MenuListItem item) {
+		return items.remove(item);
 	}
 
 	/*
