@@ -25,7 +25,7 @@ public class MenuListViewAdapter implements ListAdapter {
 	public int SUB_TEXT_COLOR = Color.WHITE;
 
 	public int LINE_SEPARATOR_COLOR = Color.BLACK;
-	public int BACKGROUND_COLOR = Color.GRAY;
+	public int BACKGROUND_COLOR = Color.WHITE;
 
 	public int MAIN_TEXT_SIZE = 21;
 	public int SUB_TEXT_SIZE = 12;
