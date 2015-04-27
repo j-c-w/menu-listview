@@ -3,6 +3,9 @@ package com.jcw.ListViewMenu;
 import android.content.Context;
 import android.database.DataSetObserver;
 import android.graphics.Color;
+import android.graphics.Typeface;
+import android.text.Spannable;
+import android.text.Spanned;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
@@ -19,6 +22,12 @@ import java.util.List;
  * to it.
  */
 public class MenuListViewAdapter implements ListAdapter {
+	public static final int BOLD_FALG = Typeface.BOLD;
+	public static final int ITALIC_FLAG = Typeface.ITALIC;
+
+	public int MAIN_TEXT_STYLE_FLAGS = 0;
+	public int SUB_TEXT_STYLE_FLAGS = 0;
+
 	public int ENABLED_COLOR = Color.GRAY;
 	public int DISABLED_COLOR = Color.LTGRAY;
 	public int MAIN_TEXT_COLOR = Color.WHITE;
@@ -161,10 +170,12 @@ public class MenuListViewAdapter implements ListAdapter {
 			container.setBackgroundColor(DISABLED_COLOR);
 		}
 
+		styleTextView(MAIN_TEXT_STYLE_FLAGS, mainText);
 		mainText.setTextColor(MAIN_TEXT_COLOR);
 		mainText.setText(data.getText());
 		mainText.setTextSize(MAIN_TEXT_SIZE);
 
+		styleTextView(SUB_TEXT_STYLE_FLAGS, subtext);
 		subtext.setTextColor(SUB_TEXT_COLOR);
 		subtext.setText(data.getSubheader());
 		subtext.setTextSize(SUB_TEXT_SIZE);
@@ -183,6 +194,14 @@ public class MenuListViewAdapter implements ListAdapter {
 		mainContainer.addView(getListSeparator());
 
 		return mainContainer;
+	}
+
+	/*
+	 * this parses the style flags and applies them to the text view
+	 */
+	private void styleTextView(int flags, TextView text) {
+		text.setTypeface(null, flags);
+
 	}
 
 	/*
