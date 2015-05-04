@@ -28,16 +28,20 @@ public class MenuListViewAdapter implements ListAdapter {
 	public int MAIN_TEXT_STYLE_FLAGS = 0;
 	public int SUB_TEXT_STYLE_FLAGS = 0;
 
-	public int ENABLED_COLOR = Color.GRAY;
+	public int ENABLED_COLOR = Color.WHITE;
 	public int DISABLED_COLOR = Color.LTGRAY;
-	public int MAIN_TEXT_COLOR = Color.WHITE;
-	public int SUB_TEXT_COLOR = Color.WHITE;
+	public int MAIN_TEXT_COLOR = Color.BLACK;
+	public int SUB_TEXT_COLOR = Color.BLACK;
 
-	public int LINE_SEPARATOR_COLOR = Color.BLACK;
+	public int SELECTED_COLOR = Color.parseColor("#424242");
+
+	public int LINE_SEPARATOR_COLOR = Color.WHITE;
 	public int BACKGROUND_COLOR = Color.WHITE;
 
 	public int MAIN_TEXT_SIZE = 21;
 	public int SUB_TEXT_SIZE = 12;
+
+	public int TEXT_PADDING = 72;
 
 
 	Context context;
@@ -147,7 +151,7 @@ public class MenuListViewAdapter implements ListAdapter {
 	public View getView(int i, View view, ViewGroup viewGroup) {
 		MenuListItem data = items.get(i);
 
-		return getView(data);
+		return getView(data, i);
 	}
 
 	public void invalidate() {
@@ -156,14 +160,14 @@ public class MenuListViewAdapter implements ListAdapter {
 		}
 	}
 
-	protected View getView(MenuListItem data) {
-		LinearLayout container = new LinearLayout(context);
+	protected View getView(MenuListItem data, final int index) {
+		final LinearLayout container = new LinearLayout(context);
 
 		TextView mainText = new TextView(context);
 		TextView subtext = new TextView(context);
 
 		container.setOrientation(LinearLayout.VERTICAL);
-		container.setPadding(15 * data.getIndentFactor(), 15, 15, 15);
+		container.setPadding(15 * data.getIndentFactor() + TEXT_PADDING, 15, 15, 15);
 		if (data.enabled) {
 			container.setBackgroundColor(ENABLED_COLOR);
 		} else {
