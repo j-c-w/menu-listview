@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.text.Spannable;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
@@ -185,11 +186,16 @@ public class MenuListViewAdapter implements ListAdapter {
 		mainText.setTextColor(MAIN_TEXT_COLOR);
 		mainText.setText(data.getText());
 		mainText.setTextSize(MAIN_TEXT_SIZE);
+		mainText.setEllipsize(TextUtils.TruncateAt.END);
+		mainText.setSingleLine();
 
 		styleTextView(SUB_TEXT_STYLE_FLAGS, subtext);
 		subtext.setTextColor(SUB_TEXT_COLOR);
 		subtext.setText(data.getSubheader());
 		subtext.setTextSize(SUB_TEXT_SIZE);
+		subtext.setEllipsize(TextUtils.TruncateAt.END);
+		subtext.setSingleLine();
+
 
 		container.addView(mainText);
 		if (data.hasSubheader()) {
