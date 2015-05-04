@@ -41,6 +41,9 @@ public class MenuListViewAdapter implements ListAdapter {
 
 	public int TEXT_PADDING = 12;
 
+	// This is set to -1 to imply that the height should be WRAP_CONTENT
+	public int ITEM_HEIGHT = -1;
+
 
 	Context context;
 
@@ -171,8 +174,6 @@ public class MenuListViewAdapter implements ListAdapter {
 		} else {
 			container.setBackgroundColor(DISABLED_COLOR);
 		}
-
-		container.setClickable(true);
 
 		styleTextView(MAIN_TEXT_STYLE_FLAGS, mainText);
 		mainText.setTextColor(MAIN_TEXT_COLOR);
