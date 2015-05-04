@@ -28,7 +28,7 @@ public class MenuListViewAdapter implements ListAdapter {
 	public int MAIN_TEXT_STYLE_FLAGS = 0;
 	public int SUB_TEXT_STYLE_FLAGS = 0;
 
-	public int ENABLED_COLOR = Color.WHITE;
+	// To set the enabled color, you need to change the XML files... Sorry!
 	public int DISABLED_COLOR = Color.LTGRAY;
 	public int MAIN_TEXT_COLOR = Color.BLACK;
 	public int SUB_TEXT_COLOR = Color.BLACK;
@@ -167,10 +167,12 @@ public class MenuListViewAdapter implements ListAdapter {
 		container.setOrientation(LinearLayout.VERTICAL);
 		container.setPadding(15 * data.getIndentFactor() + TEXT_PADDING, 15, 15, 15);
 		if (data.enabled) {
-			container.setBackgroundColor(ENABLED_COLOR);
+			container.setBackgroundResource(R.drawable.enabled_background);
 		} else {
 			container.setBackgroundColor(DISABLED_COLOR);
 		}
+
+		container.setClickable(true);
 
 		styleTextView(MAIN_TEXT_STYLE_FLAGS, mainText);
 		mainText.setTextColor(MAIN_TEXT_COLOR);
