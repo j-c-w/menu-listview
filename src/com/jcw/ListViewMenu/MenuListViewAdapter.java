@@ -42,6 +42,8 @@ public class MenuListViewAdapter implements ListAdapter {
 	public int TEXT_PADDING = 12;
 
 	// This is set to -1 to imply that the height should be WRAP_CONTENT
+	// Note that this is used to set the minimum height rather than the
+	// absolute height.
 	public int ITEM_HEIGHT = -1;
 
 
@@ -173,6 +175,10 @@ public class MenuListViewAdapter implements ListAdapter {
 			container.setBackgroundResource(R.drawable.enabled_background);
 		} else {
 			container.setBackgroundColor(DISABLED_COLOR);
+		}
+
+		if (ITEM_HEIGHT > 0) {
+			container.setMinimumHeight(ITEM_HEIGHT);
 		}
 
 		styleTextView(MAIN_TEXT_STYLE_FLAGS, mainText);
