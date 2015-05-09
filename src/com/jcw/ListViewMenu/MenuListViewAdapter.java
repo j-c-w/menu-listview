@@ -32,7 +32,7 @@ public class MenuListViewAdapter implements ListAdapter {
 
 	// To set the enabled color, you need to change the XML files... Sorry!
 	public int DISABLED_COLOR = Color.LTGRAY;
-	public int MAIN_TEXT_COLOR = Color.parseColor("#366");
+	public int MAIN_TEXT_COLOR = Color.parseColor("#306060");
 	public int SUB_TEXT_COLOR = Color.parseColor("#787878");
 
 	public int LINE_SEPARATOR_COLOR = Color.parseColor("#f4f4f4");
