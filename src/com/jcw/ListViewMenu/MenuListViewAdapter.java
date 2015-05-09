@@ -7,6 +7,7 @@ import android.graphics.Typeface;
 import android.text.Spannable;
 import android.text.Spanned;
 import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
@@ -37,10 +38,10 @@ public class MenuListViewAdapter implements ListAdapter {
 	public int LINE_SEPARATOR_COLOR = Color.WHITE;
 	public int BACKGROUND_COLOR = Color.WHITE;
 
-	public int MAIN_TEXT_SIZE = 21;
-	public int SUB_TEXT_SIZE = 12;
+	public int MAIN_TEXT_SIZE;
+	public int SUB_TEXT_SIZE;
 
-	public int TEXT_PADDING = 12;
+	public int TEXT_PADDING;
 
 	// This is set to -1 to imply that the height should be WRAP_CONTENT
 	// Note that this is used to set the minimum height rather than the
@@ -58,6 +59,11 @@ public class MenuListViewAdapter implements ListAdapter {
 		this.context = context;
 
 		items = new ArrayList<MenuListItem>();
+
+		MAIN_TEXT_SIZE = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 18, context.getResources().getDisplayMetrics());
+		SUB_TEXT_SIZE = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12, context.getResources().getDisplayMetrics());
+
+		TEXT_PADDING = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16, context.getResources().getDisplayMetrics());
 	}
 
 	@Override
