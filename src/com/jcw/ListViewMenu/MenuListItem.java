@@ -58,7 +58,7 @@ public class MenuListItem {
 	}
 
 	public int getIndentFactor() {
-		return indent + 1;
+		return indent;
 	}
 
 	public int getIndent() {
