@@ -43,10 +43,10 @@ public class MenuListViewAdapter implements ListAdapter {
 
 	public int TEXT_PADDING;
 
-	// This is set to -1 to imply that the height should be WRAP_CONTENT
+	// This can be set to -1 to imply that the height should be WRAP_CONTENT
 	// Note that this is used to set the minimum height rather than the
 	// absolute height.
-	public int ITEM_HEIGHT = -1;
+	public int ITEM_HEIGHT;
 
 
 	Context context;
@@ -64,6 +64,7 @@ public class MenuListViewAdapter implements ListAdapter {
 		SUB_TEXT_SIZE = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12, context.getResources().getDisplayMetrics());
 
 		TEXT_PADDING = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16, context.getResources().getDisplayMetrics());
+		ITEM_HEIGHT = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 48, context.getResources().getDisplayMetrics());
 	}
 
 	@Override
