@@ -185,10 +185,6 @@ public class MenuListViewAdapter implements ListAdapter {
 			container.setBackgroundColor(DISABLED_COLOR);
 		}
 
-		if (ITEM_HEIGHT > 0) {
-			container.setMinimumHeight(ITEM_HEIGHT);
-		}
-
 		styleTextView(MAIN_TEXT_STYLE_FLAGS, mainText);
 		mainText.setTextColor(MAIN_TEXT_COLOR);
 		mainText.setText(data.getText());
@@ -216,6 +212,17 @@ public class MenuListViewAdapter implements ListAdapter {
 
 		mainContainer.addView(container);
 		mainContainer.addView(getListSeparator());
+
+		// Now that the container has layout params attached to it,
+		// the height can be set. If the ITEM_HEIGHT was -1, leave
+		// the container as WRAP_CONTENT.
+		if (ITEM_HEIGHT > 0) {
+			container.getLayoutParams().height = ITEM_HEIGHT;
+
+			// We also need to update the padding on the top and bottom to 0
+			// to stop wasting any space.
+			container.setPadding(container.getPaddingLeft(), 0, 0, 0);
+		}
 
 		return mainContainer;
 	}
