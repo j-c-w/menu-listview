@@ -191,14 +191,14 @@ public class MenuListViewAdapter implements ListAdapter {
 		styleTextView(MAIN_TEXT_STYLE_FLAGS, mainText);
 		mainText.setTextColor(MAIN_TEXT_COLOR);
 		mainText.setText(data.getText());
-		mainText.setTextSize(MAIN_TEXT_SIZE);
+		mainText.setTextSize(TypedValue.COMPLEX_UNIT_DIP, MAIN_TEXT_SIZE);
 		mainText.setEllipsize(TextUtils.TruncateAt.END);
 		mainText.setSingleLine();
 
 		styleTextView(SUB_TEXT_STYLE_FLAGS, subtext);
 		subtext.setTextColor(SUB_TEXT_COLOR);
 		subtext.setText(data.getSubheader());
-		subtext.setTextSize(SUB_TEXT_SIZE);
+		subtext.setTextSize(TypedValue.COMPLEX_UNIT_DIP, SUB_TEXT_SIZE);
 		subtext.setEllipsize(TextUtils.TruncateAt.END);
 		subtext.setSingleLine();
 
