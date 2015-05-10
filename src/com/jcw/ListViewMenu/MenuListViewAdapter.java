@@ -35,8 +35,8 @@ public class MenuListViewAdapter implements ListAdapter {
 	public int MAIN_TEXT_COLOR = Color.parseColor("#306060");
 	public int SUB_TEXT_COLOR = Color.parseColor("#787878");
 
-	public int LINE_SEPARATOR_COLOR = Color.parseColor("#f4f4f4");
-	public int BACKGROUND_COLOR = Color.parseColor("#f4f4f4");
+	public int LINE_SEPARATOR_COLOR;
+	public int BACKGROUND_COLOR;
 
 	public int MAIN_TEXT_SIZE;
 	public int SUB_TEXT_SIZE;
@@ -59,6 +59,9 @@ public class MenuListViewAdapter implements ListAdapter {
 		this.context = context;
 
 		items = new ArrayList<MenuListItem>();
+
+		BACKGROUND_COLOR = context.getResources().getColor(R.color.defaultBackground);
+		LINE_SEPARATOR_COLOR = context.getResources().getColor(R.color.defaultBackground);
 
 		MAIN_TEXT_SIZE = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 18, context.getResources().getDisplayMetrics());
 		SUB_TEXT_SIZE = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 12, context.getResources().getDisplayMetrics());
