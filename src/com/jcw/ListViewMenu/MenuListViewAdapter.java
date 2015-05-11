@@ -38,8 +38,8 @@ public class MenuListViewAdapter implements ListAdapter {
 	public int LINE_SEPARATOR_COLOR;
 	public int BACKGROUND_COLOR;
 
-	public int MAIN_TEXT_SIZE;
-	public int SUB_TEXT_SIZE;
+	public int MAIN_TEXT_SIZE = 18;
+	public int SUB_TEXT_SIZE = 12;
 
 	public int TEXT_PADDING;
 
@@ -62,9 +62,6 @@ public class MenuListViewAdapter implements ListAdapter {
 
 		BACKGROUND_COLOR = context.getResources().getColor(R.color.defaultBackground);
 		LINE_SEPARATOR_COLOR = context.getResources().getColor(R.color.defaultBackground);
-
-		MAIN_TEXT_SIZE = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 18, context.getResources().getDisplayMetrics());
-		SUB_TEXT_SIZE = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 12, context.getResources().getDisplayMetrics());
 
 		TEXT_PADDING = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16, context.getResources().getDisplayMetrics());
 		ITEM_HEIGHT = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 48, context.getResources().getDisplayMetrics());
