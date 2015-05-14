@@ -30,13 +30,8 @@ public class MenuListViewAdapter implements ListAdapter {
 	public int MAIN_TEXT_STYLE_FLAGS = 0;
 	public int SUB_TEXT_STYLE_FLAGS = 0;
 
-	// To set the enabled color, you need to change the XML files... Sorry!
-	public int DISABLED_COLOR = Color.LTGRAY;
 	public int MAIN_TEXT_COLOR = Color.parseColor("#306060");
 	public int SUB_TEXT_COLOR = Color.parseColor("#787878");
-
-	public int LINE_SEPARATOR_COLOR;
-	public int BACKGROUND_COLOR;
 
 	public int MAIN_TEXT_SIZE = 18;
 	public int SUB_TEXT_SIZE = 12;
@@ -59,9 +54,6 @@ public class MenuListViewAdapter implements ListAdapter {
 		this.context = context;
 
 		items = new ArrayList<MenuListItem>();
-
-		BACKGROUND_COLOR = context.getResources().getColor(R.color.defaultBackground);
-		LINE_SEPARATOR_COLOR = context.getResources().getColor(R.color.defaultBackground);
 
 		TEXT_PADDING = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16, context.getResources().getDisplayMetrics());
 		ITEM_HEIGHT = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 48, context.getResources().getDisplayMetrics());
@@ -183,14 +175,11 @@ public class MenuListViewAdapter implements ListAdapter {
 
 		container.setOrientation(LinearLayout.VERTICAL);
 		container.setPadding(15 * data.getIndentFactor() + TEXT_PADDING, 15, 15, 15);
-		if (data.enabled && data.clickable) {
-			container.setBackgroundResource(R.drawable.enabled_background);
-		} else if (!data.clickable) {
-			// In this case we want a background that doesn't change
-			// when it is clicked.
-			container.setBackgroundResource(R.drawable.normal);
+		if (data.clickable) {
+			container.setBackgroundResource(R.drawable.item_background);
+			container.setEnabled(data.enabled);
 		} else {
-			container.setBackgroundColor(DISABLED_COLOR);
+			container.setBackgroundResource(R.drawable.normal);
 		}
 
 		styleTextView(MAIN_TEXT_STYLE_FLAGS, mainText);
@@ -253,7 +242,7 @@ public class MenuListViewAdapter implements ListAdapter {
 				ViewGroup.LayoutParams.MATCH_PARENT, 3
 		));
 
-		separator.setBackgroundColor(LINE_SEPARATOR_COLOR);
+		separator.setBackgroundResource(R.drawable.list_divider);
 		return separator;
 	}
 

@@ -35,7 +35,10 @@ public class MenuListView extends ListView {
 	}
 
 	private void init() {
+		// This sets up the default click listener (see the setOnItemClickListener implementation
 		this.setOnItemClickListener(null);
+
+		this.setBackgroundResource(R.drawable.list_background);
 	}
 
 	@Override
@@ -44,7 +47,6 @@ public class MenuListView extends ListView {
 			throw new IllegalArgumentException("You must use a MenuListViewAdapter with the MenuListView" +
 					" " + adapter.getClass().toString() + " is not an instance of  MenuListViewAdapter");
 		this.adapter = ((MenuListViewAdapter) adapter);
-		this.setBackgroundColor(this.adapter.BACKGROUND_COLOR);
 
 		super.setAdapter(adapter);
 	}
