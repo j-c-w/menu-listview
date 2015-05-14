@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<color name="defaultBackground">#f0f0f0f0</color>
+	<color name="defaultItemBackground">#f0f0f0f0</color>
+	<color name="defaultDividerColor">#f0f0f0f0</color>
+	<color name="defaultListBackground">#f0f0f0f0</color>
 	<color name="defaultClicked">#424242</color>
 </resources>
