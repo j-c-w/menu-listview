@@ -80,6 +80,10 @@ public class MenuListViewAdapter implements ListAdapter {
 	public void itemClick(int index) {
 		MenuListItem item = items.get(index);
 
+		if (!item.clickable) {
+			return;
+		}
+
 		MenuItemClickListener thisListener = item.listener;
 		if (thisListener != null) {
 			thisListener.onClick(item.getText(), item.getSubheader(), item instanceof MenuListFolder);
@@ -179,8 +183,12 @@ public class MenuListViewAdapter implements ListAdapter {
 
 		container.setOrientation(LinearLayout.VERTICAL);
 		container.setPadding(15 * data.getIndentFactor() + TEXT_PADDING, 15, 15, 15);
-		if (data.enabled) {
+		if (data.enabled && data.clickable) {
 			container.setBackgroundResource(R.drawable.enabled_background);
+		} else if (!data.clickable) {
+			// In this case we want a background that doesn't change
+			// when it is clicked.
+			container.setBackgroundResource(R.drawable.normal);
 		} else {
 			container.setBackgroundColor(DISABLED_COLOR);
 		}
