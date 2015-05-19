@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<color name="defaultItemBackground">#f0f0f0f0</color>
-	<color name="defaultDividerColor">#f0f0f0f0</color>
-	<color name="defaultListBackground">#f0f0f0f0</color>
+	<color name="defaultItemBackground">#f0f0f0</color>
+	<color name="defaultDividerColor">#f0f0f0</color>
+	<color name="defaultListBackground">#f0f0f0</color>
 	<color name="defaultClicked">#424242</color>
 	<color name="disabledColor">#898989</color>
 </resources>
