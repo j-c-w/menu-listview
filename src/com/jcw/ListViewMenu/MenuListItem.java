@@ -18,6 +18,10 @@ public class MenuListItem {
 	public boolean enabled = true;
 	public boolean clickable = true;
 
+	// This needs to be set if the content of the item is changed.
+	// it signals to the list view that the item needs to be redrawn.
+	private boolean invalidated = true;
+
 	public MenuListItem(String text, MenuItemClickListener listener) {
 		this.text = text;
 		this.listener = listener;
@@ -36,6 +40,22 @@ public class MenuListItem {
 	public MenuListItem(String text, String subheader) {
 		this.text = text;
 		this.subheader = subheader;
+	}
+
+	public void setSubheader(String subheader) {
+		this.subheader = subheader;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
+	public void invalidate() {
+		this.invalidated = true;
+	}
+
+	public boolean isInvalidated() {
+		return invalidated;
 	}
 
 	public void setMenuItemClickListener(MenuItemClickListener listener) {
