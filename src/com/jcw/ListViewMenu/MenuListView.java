@@ -38,7 +38,7 @@ public class MenuListView extends ListView {
 		// This sets up the default click listener (see the setOnItemClickListener implementation
 		this.setOnItemClickListener(null);
 
-		this.setBackgroundResource(R.drawable.list_background);
+		this.setBackgroundResource(R.drawable.mlv_list_background);
 	}
 
 	@Override

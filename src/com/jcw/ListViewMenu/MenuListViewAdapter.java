@@ -176,10 +176,10 @@ public class MenuListViewAdapter implements ListAdapter {
 		container.setOrientation(LinearLayout.VERTICAL);
 		container.setPadding(15 * data.getIndentFactor() + TEXT_PADDING, 15, 15, 15);
 		if (data.clickable) {
-			container.setBackgroundResource(R.drawable.item_background);
+			container.setBackgroundResource(R.drawable.mlv_item_background);
 			container.setEnabled(data.enabled);
 		} else {
-			container.setBackgroundResource(R.drawable.normal);
+			container.setBackgroundResource(R.drawable.mlv_normal);
 		}
 
 		styleTextView(MAIN_TEXT_STYLE_FLAGS, mainText);
@@ -242,7 +242,7 @@ public class MenuListViewAdapter implements ListAdapter {
 				ViewGroup.LayoutParams.MATCH_PARENT, 3
 		));
 
-		separator.setBackgroundResource(R.drawable.list_divider);
+		separator.setBackgroundResource(R.drawable.mlv_list_divider);
 		return separator;
 	}
 
