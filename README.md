@@ -4,7 +4,7 @@ It lets you add items to the list and link them up with listeners in ways that a
 
 See the MenuListViewExampleActivity for a quick example.
 
-Putting this in my project
+Putting this in your project
 ---------
 To put this project into your own, there are two steps that you need to take.
 
@@ -25,9 +25,7 @@ replacing the package com.jcw.ListViewMenu with the new package where the files 
 -----------
 
 Documentation
-
 --------------
-
 A MenuListView is just an extension of a ListView that is better suited to displaying your menu.
 
 It uses a MenuListViewAdapter to display the contents of a page.
@@ -78,7 +76,7 @@ TextViews.
 ------------------------
 
 Method by Method
-
+-------------
 **MenuListItem**
 
 These are the basic building blocks of the menu. They can have both a text and a sub text (which appears as a subnote in a menu),
@@ -148,6 +146,6 @@ The only method of note here is the setAdapter method. This method requires a Me
 ------------------------
 
 ** Common Errors **
-
+-------------------
 An IllegalArgumentException stating that "You must use a MenuListViewAdapter with a MenuListView" -
 Most likely, you passed a normal ListAdapter as an argument. Just use a MenuListViewAdapter instead.
